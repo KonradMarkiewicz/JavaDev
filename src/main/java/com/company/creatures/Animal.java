@@ -1,10 +1,15 @@
 package com.company.creatures;
 
+import com.company.database.Connector;
 import com.company.devices.Saleable;
 
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Animal implements Saleable, Feedable {
+public class Animal implements Saleable, Feedable {
 
     final static Double MIN_WEIGHT = 2.0;
     final static Double DEFAULT_FOOD_WEIGHT = 1.0;
@@ -71,4 +76,11 @@ public abstract class Animal implements Saleable, Feedable {
     public void sell(Human seller, Human buyer, Double price) throws Exception {
 
     }
+
+    public void saveAnimal() throws SQLException {
+        String sql = "insert into animal values ('" + this.species + "'," + this.isAlive + ",'" + this.name + "','" + this.weight + "');";
+        System.out.println(sql);
+        Connector.executeSQL(sql);
+    }
+
 }

@@ -1,9 +1,14 @@
 package com.company.creatures;
 
+import com.company.database.Connector;
 import com.company.devices.Car;
 import com.company.devices.Phone;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Human extends Animal {
 
@@ -39,6 +44,15 @@ public class Human extends Animal {
     public Human(String firstName) {
         super(HOMO_SAPIENS);
         this.firstName = firstName;
+        this.garage = new Car[GARAGE_DEFAULT_SIZE];
+    }
+
+    public Human(String firstName, String lastName, Double salary, Double cash) {
+        super(HOMO_SAPIENS);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.salary = salary;
+        this.cash = cash;
         this.garage = new Car[GARAGE_DEFAULT_SIZE];
     }
 
@@ -138,4 +152,11 @@ public class Human extends Animal {
             }
         }
     }
+
+    public void saveHuman() throws SQLException {
+        String sql = "insert into human values ('" + this.firstName + "','" + this.lastName + "','" + this.salary + "','" + this.cash + "');";
+        System.out.println(sql);
+        Connector.executeSQL(sql);
+    }
+
 }
