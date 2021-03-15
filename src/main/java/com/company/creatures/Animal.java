@@ -83,4 +83,21 @@ public class Animal implements Saleable, Feedable {
         Connector.executeSQL(sql);
     }
 
+    public List<Animal> findAnimals() throws SQLException {
+        List<Animal> animalsList = new ArrayList<Animal>();
+        String sql = "select * from animal;";
+        System.out.println(sql);
+        ResultSet rs = Connector.getStatement().executeQuery(sql);
+        while (rs.next())
+        {
+            System.out.println(rs.getString("species") + ", "
+                    + rs.getString("is_alive") + ", "
+                    + rs.getString("name") + ", "
+                    + rs.getDouble("weight"));
+            Animal animal = new Animal(species);
+            animalsList.add(animal);
+        }
+        rs.close();
+        return animalsList;
+    }
 }

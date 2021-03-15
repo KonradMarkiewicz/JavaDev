@@ -159,4 +159,22 @@ public class Human extends Animal {
         Connector.executeSQL(sql);
     }
 
+    public List<Human> findHumans() throws SQLException {
+        List<Human> humanList = new ArrayList<>();
+        String sql = "select * from human;";
+        System.out.println(sql);
+        ResultSet rs = Connector.getStatement().executeQuery(sql);
+        while (rs.next())
+        {
+            System.out.println(rs.getString("first_name") + ", "
+                    + rs.getString("last_name") + ", "
+                    + rs.getString("salary") + ", "
+                    + rs.getString("cash"));
+            Human human = new Human(firstName, lastName, salary, cash);
+            humanList.add(human);
+        }
+        rs.close();
+        return humanList;
+    }
+
 }
